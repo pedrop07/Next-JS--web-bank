@@ -13,7 +13,7 @@ function Edit() {
     payload.name = document.getElementById('name').value;
     payload.password = document.getElementById('password').value;
 
-    fetch(`/api/user/${user.cpf}`, {
+    fetch(`/api/user/${user.id}`, {
       method: "PUT",
       body: JSON.stringify(payload),
       headers: {
@@ -31,13 +31,12 @@ function Edit() {
         document.getElementById('ac-password').value = '';
       });
   }
-  
+
   useEffect(() => {
     if(!localStorage.getItem('user')) window.location.href = "/login";
 
     const form = document.querySelector('form');
     const user = JSON.parse(localStorage.getItem('user'));
-
     document.getElementById('email').value = user.email;
     document.getElementById('name').value = user.name;
     document.getElementById('password').value = user.password;
@@ -53,9 +52,9 @@ function Edit() {
         <h1>Edite seus dados</h1>
         <p>Verifique todos os dados antes de alterar!</p>
         <form onSubmit={onSubmit}>
-          <input type="email" placeholder="Edite seu e-mail" id="email" />
-          <input type="text" placeholder="Edite seu nome" id="name" />
-          <input type="password" placeholder="Edite sua senha" id="password" />
+          <input type="email" placeholder="Edite seu e-mail" id="email" required />
+          <input type="text" placeholder="Edite seu nome" id="name" required />
+          <input type="password" placeholder="Edite sua senha" id="password" required />
 
           <input type="password" placeholder="Senha atual para confirmar alterações" id="ac-password" required />
       

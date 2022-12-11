@@ -26,13 +26,12 @@ export async function withdrawController(req, res) {
   //   date: new Date(),
   //   description
   // };
-
   await prisma.user.update({
     where: {
       id: cpf,
     },
     data:{
-      bankBalance: user.bankBalance - amount
+      bankBalance: Number(user.bankBalance) - amount
     }
   })
 

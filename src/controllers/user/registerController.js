@@ -18,7 +18,7 @@ export async function registerController(req, res) {
 
   await prisma.user.create({
     data:{
-      id: parseInt(cpf),
+      id: cpf,
       name,
       email,
       password,
@@ -33,5 +33,11 @@ export async function registerController(req, res) {
 
   // db.users[cpf] = user;
 
-  return res.status(201).send({});
+  const actualUser = await prisma.user.findUnique({
+    where: {
+      id: cpf,
+    },
+  })
+
+  return res.status(201).send(actualUser);
 }

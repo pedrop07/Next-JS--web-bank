@@ -4,7 +4,7 @@ function Register() {
 
     const payload = {};
     payload.name = document.getElementById('name').value;
-    payload.cpf = parseInt(document.getElementById('cpf').value);
+    payload.cpf = document.getElementById('cpf').value;
     payload.email = document.getElementById('email').value;
     payload.password = document.getElementById('password').value;
 

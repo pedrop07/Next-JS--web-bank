@@ -10,7 +10,7 @@ function Transfer() {
 
     const user = JSON.parse(localStorage.getItem('user'));
 
-    fetch(`/api/transfer/${user.cpf}`, {
+    fetch(`/api/transfer/${user.id}`, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {

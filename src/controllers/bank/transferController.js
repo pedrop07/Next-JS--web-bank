@@ -1,11 +1,25 @@
+import { prisma } from "../../lib/prisma";
+
 const { db } = require("../../db");
 
-export function transferController(req, res) {
+export async function transferController(req, res) {
   const { cpf } = req.query;
   const { amount, toCpf, description } = req.body;
 
-  const user = db.users[cpf];
-  const toUser = db.users[toCpf];
+  // const user = db.users[cpf];
+  // const toUser = db.users[toCpf];
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: cpf,
+    },
+  })
+
+  const toUser = await prisma.user.findUnique({
+    where: {
+      id: cpf,
+    },
+  })
 
   if(!user || !toUser) return res.status(400).send('Não existe um usuário com este CPF.');
 

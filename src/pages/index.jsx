@@ -5,8 +5,6 @@ function Home() {
 
   useEffect(() => {
     const userInfos = JSON.parse(localStorage.getItem('user'));
-    console.log(userInfos)
-
     if(!userInfos) window.location.href = "/login";
 
     let userInfosUpdated = {};

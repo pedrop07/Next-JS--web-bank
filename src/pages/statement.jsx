@@ -8,7 +8,7 @@ function Statement() {
 
     if(!user) window.location.href = "/login";
 
-    fetch(`/api/statement/${user.cpf}`)
+    fetch(`/api/statement/${user.id}`)
       .then(res => res.json())
       .then(data => setStatement(data));
   }, []);
