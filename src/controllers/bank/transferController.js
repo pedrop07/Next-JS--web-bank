@@ -17,13 +17,13 @@ export async function transferController(req, res) {
 
   const toUser = await prisma.user.findUnique({
     where: {
-      id: cpf,
+      id: toCpf,
     },
   })
 
   if(!user || !toUser) return res.status(400).send('Não existe um usuário com este CPF.');
 
-  if(user === toUser) return res.status(400).send('Não é possível transferir dinheiro para si próprio.');
+  if(cpf === toCpf) return res.status(400).send('Não é possível transferir dinheiro para si próprio.');
 
   if(amount <= 0) return res.status(400).send('Não é possível transferir um valor negativo ou igual a 0.');
 
@@ -45,11 +45,29 @@ export async function transferController(req, res) {
     description
   };
 
-  user.bankBalance -= amount;
-  user.statement.push(transfer);
+  await prisma.user.update({
+    where: {
+      id: cpf,
+    },
+    data:{
+      bankBalance: Number(user.bankBalance) - amount
+    }
+  })
 
-  toUser.bankBalance += amount;
-  toUser.statement.push(transferReceipt);
+  await prisma.user.update({
+    where: {
+      id: toCpf,
+    },
+    data:{
+      bankBalance: Number(toUser.bankBalance) + amount
+    }
+  })
+
+  // user.bankBalance -= amount;
+  // user.statement.push(transfer);
+
+  // toUser.bankBalance += amount;
+  // toUser.statement.push(transferReceipt);
 
   return res.status(200).send(toUser);
 }
