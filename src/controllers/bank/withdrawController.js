@@ -26,6 +26,15 @@ export async function withdrawController(req, res) {
   //   date: new Date(),
   //   description
   // };
+
+  await prisma.transaction.create({
+    data: {
+      type: "withdraw",
+      amount,
+      user_id: user.id
+    }
+  })
+
   await prisma.user.update({
     where: {
       id: cpf,

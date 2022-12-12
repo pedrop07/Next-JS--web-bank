@@ -24,6 +24,14 @@ export async function depositController(req, res) {
   //   date: new Date()
   // };
 
+  await prisma.transaction.create({
+    data: {
+      type: "deposit",
+      amount,
+      user_id: user.id
+    }
+  })
+
   await prisma.user.update({
     where: {
       id: cpf,

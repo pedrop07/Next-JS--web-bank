@@ -13,6 +13,8 @@ function Statement() {
       .then(data => setStatement(data));
   }, []);
 
+  console.log(statement)
+
   const transformOrderTypeToLabel = (orderType) => {
     switch(orderType) {
       case 'transfer':
@@ -45,9 +47,9 @@ function Statement() {
             </tr>
             {
               statement.map((order) => (
-                <tr key={order.date}>
+                <tr key={order.createdAt}>
                   <td>{transformOrderTypeToLabel(order.type)}</td>
-                  <td>{new Date(order.date).toLocaleDateString()}</td>
+                  <td>{new Date(order.createdAt).toLocaleDateString()}</td>
                   <td>R$ {String(order.amount.toFixed(2)).replace('.', ',')}</td>
                   <td>{order.description ? order.description.substr(0, 15) : '---'}</td>
                 </tr>

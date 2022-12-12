@@ -29,21 +29,37 @@ export async function transferController(req, res) {
 
   if(amount > user.bankBalance) return res.status(400).send('Não é possível transferir um valor maior que o saldo.');
 
-  const transfer = {
-    type: "transfer",
-    to: toUser.name,
-    amount,
-    date: new Date(),
-    description
-  };
+  // const transfer = {
+  //   type: "transfer",
+  //   to: toUser.name,
+  //   amount,
+  //   date: new Date(),
+  //   description
+  // };
 
-  const transferReceipt = {
-    type: "receipt",
-    by: user.name,
-    amount,
-    date: new Date(),
-    description
-  };
+  // const transferReceipt = {
+  //   type: "receipt",
+  //   by: user.name,
+  //   amount,
+  //   date: new Date(),
+  //   description
+  // };
+
+  await prisma.transaction.create({
+    data: {
+      type: "transfer",
+      amount,
+      user_id: user.id
+    }
+  })
+
+  await prisma.transaction.create({
+    data: {
+      type: "receipt",
+      amount,
+      user_id: toUser.id
+    }
+  })
 
   await prisma.user.update({
     where: {
