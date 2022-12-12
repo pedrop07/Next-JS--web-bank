@@ -10,8 +10,8 @@ function Statement() {
   const [statement, setStatement] = useState([]);
 
   useEffect(() => {
-    if(!user) window.location.href = "/login";
     if(!id) return;
+    if(id && !user) window.location.href = "/login";
 
     fetch(`/api/statement/${id}`)
       .then(res => res.json())
@@ -30,6 +30,8 @@ function Statement() {
         return 'Saque'
     }
   }
+
+  if(!id) return null;
 
   return (
     <div className="body">

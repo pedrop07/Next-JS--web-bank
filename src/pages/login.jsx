@@ -15,6 +15,7 @@ function Login() {
       .then(res => res.json())
       .then(data => {
         localStorage.setItem('user', JSON.stringify(data));
+
         window.location.href = "/";
       })
       .catch(err => {

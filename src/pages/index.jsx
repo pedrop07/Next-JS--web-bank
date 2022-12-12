@@ -11,6 +11,7 @@ function Home() {
     fetch(`/api/user/${userInfos.id}`)
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         localStorage.setItem('user', JSON.stringify(data));
       });
   }, []);
