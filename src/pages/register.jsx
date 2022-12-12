@@ -1,4 +1,11 @@
 function Register() {
+  let user;
+
+  if (typeof window !== 'undefined') {
+    user = JSON.parse(localStorage.getItem('user'));
+    if(user) window.location.href = "/";
+  }
+
   const onSubmit = (ev) => {
     ev.preventDefault();
 
@@ -37,8 +44,13 @@ function Register() {
       </div>
 
       <div className="right">
+          
         <h1>Fazer o seu cadastro agora!</h1>
-        <p>É simples, fácil e rápido e você já sai com sua conta do banco criada!</p>
+          
+        <p>
+          É simples, fácil e rápido e você já sai com sua conta do banco criada!
+        </p>
+
         <form onSubmit={onSubmit}>
           <input type="text" placeholder="Digite seu nome completo" id="name" required />
           <input type="number" placeholder="Digite seu CPF" id="cpf" required />
@@ -48,8 +60,11 @@ function Register() {
           <button className="btn" type="submit">
             Finalizar
           </button>
-
-          <p>Já tem uma conta? <a className="register" href="/login">Faça login!</a></p>
+              
+          <p>
+            Já tem uma conta? <a className="register" href="/login">Faça login!</a>
+          </p>
+            
         </form>
       </div>
     </div>

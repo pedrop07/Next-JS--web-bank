@@ -9,6 +9,11 @@ export default function Admin() {
   const [isLoading, setIsLoading] = useState(false);
   const [filterText, setFilterText] = useState('');
 
+  if (typeof window !== 'undefined') {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if(!user.is_admin) window.location.href = "/";
+  }
+
   const ctx = useContext(AuthContext);
 
   const filterUsers = () => {
@@ -23,6 +28,7 @@ export default function Admin() {
 
   const handleCreateUser = () => {
     // TODO: implement
+    window.location.href = "/adminregister";
   }
 
   const deleteUser = (id) => {
@@ -55,7 +61,7 @@ export default function Admin() {
       </div>
 
       <div className="right">
-        <h1>Admin</h1>
+        <h1>Painel do Administrador</h1>
         <p>Administre aqui todos os usuários</p>
         <table>
           <input 

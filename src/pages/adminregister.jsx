@@ -1,17 +1,21 @@
-function Login() {
+function AdminRegister() {
+  let user;
 
   if (typeof window !== 'undefined') {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if(user) window.location.href = "/";
+    user = JSON.parse(localStorage.getItem('user'));
+    user.is_admin ? '' : window.location.href = "/";
   }
 
   const onSubmit = (ev) => {
-    const payload = {};
     ev.preventDefault();
+
+    const payload = {};
+    payload.name = document.getElementById('name').value;
     payload.cpf = document.getElementById('cpf').value;
+    payload.email = document.getElementById('email').value;
     payload.password = document.getElementById('password').value;
 
-    fetch(`/api/user/${payload.cpf}`, {
+    fetch('/api/user', {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
@@ -20,40 +24,45 @@ function Login() {
     })
       .then(res => res.json())
       .then(data => {
-        localStorage.setItem('user', JSON.stringify(data));
-
-        window.location.href = "/";
+        alert("Usuário cadastrado !")
+        window.location.href = "/admin";
       })
       .catch(err => {
         alert('Algo deu errado com a operação, tente novamente!');
+
+        document.getElementById('name').value = '';
         document.getElementById('cpf').value = '';
+        document.getElementById('email').value = '';
         document.getElementById('password').value = '';
       });
   }
 
   return (
     <div className="body">
-
       <div className="left">
         <img src="/images/home-bg-img.svg" alt="Imagem de banco" />
       </div>
 
       <div className="right">
-        <h1>Fazer o seu login</h1>
-        <p>É simples, fácil e rápido! Entre agora para acessar o seu cartão!</p>
+        <h1>Cadastre um usuário</h1>
+
+        <p>
+          Preencha os campos abaixo
+        </p>
+
         <form onSubmit={onSubmit}>
+          <input type="text" placeholder="Digite seu nome completo" id="name" required />
           <input type="number" placeholder="Digite seu CPF" id="cpf" required />
+          <input type="email" placeholder="Digite seu e-mail" id="email" required />
           <input type="password" placeholder="Digite sua senha" id="password" required />
 
           <button className="btn" type="submit">
-            Login
+            Finalizar
           </button>
-
-          <p>Ainda não tem conta? <a className="register" href="/register">Cadastre-se agora!</a></p>
         </form>
       </div>
     </div>
   )
 }
 
-export default Login;
+export default AdminRegister;
