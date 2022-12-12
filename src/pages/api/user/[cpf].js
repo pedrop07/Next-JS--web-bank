@@ -1,4 +1,3 @@
-import { registerController } from "../../../controllers/user/registerController";
 import { loginController } from "../../../controllers/user/loginController";
 import { editUserController } from "../../../controllers/user/editUserController";
 import { deleteUserController } from "../../../controllers/user/deleteUserController";

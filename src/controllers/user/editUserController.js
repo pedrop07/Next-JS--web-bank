@@ -60,6 +60,5 @@ export async function editUserController(req, res) {
   // db.users[cpf] = newUser;
 
   const users = await prisma.user.findMany()
-  console.log(users)
   res.status(200).send(newDataUser);
 }

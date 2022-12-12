@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem('user'));
 
-    if(!currentUser && !window.location.href.includes('login')) window.location.href = "/login";
+    if(!currentUser && !window.location.href.includes('login') && !window.location.href.includes('register')) window.location.href = "/login";
 
     setUser(currentUser);
   }, [])

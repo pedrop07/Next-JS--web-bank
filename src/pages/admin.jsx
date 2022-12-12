@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AiOutlineFileText, AiOutlineEdit } from 'react-icons/ai';
 import { FiTrash } from 'react-icons/fi';
-import { BackHome } from "../components/BackHome";
 import { AuthContext } from '../shared/context/auth';
 
 export default function Admin() {
@@ -11,8 +10,6 @@ export default function Admin() {
   const [filterText, setFilterText] = useState('');
 
   const ctx = useContext(AuthContext);
-
-  console.log(ctx);
 
   const filterUsers = () => {
     if(!users) return null;
@@ -25,15 +22,26 @@ export default function Admin() {
   }
 
   const handleCreateUser = () => {
-
+    // TODO: implement
   }
 
-  useEffect(() => {
+  const deleteUser = (id) => {
+    fetch(`/api/user/${id}`, {
+      method: 'DELETE'
+    })
+      .finally(fetchData)
+  }
+
+  const fetchData = () => {
     setIsLoading(true);
 
     fetch(`/api/user`)
       .then(res => res.json())
       .then(data => setUsers(data));
+  }
+
+  useEffect(() => {
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -43,7 +51,7 @@ export default function Admin() {
   return (
     <div className="body">
       <div className="left">
-        <img src="https://nlw6-discover.herokuapp.com/images/home-bg-img.svg" alt="Imagem de banco" />
+        <img src="/images/home-bg-img.svg" alt="Imagem de banco" />
       </div>
 
       <div className="right">
@@ -90,6 +98,7 @@ export default function Admin() {
                         </a>
                         <button
                           className="icon"
+                          onClick={() => deleteUser(id)}
                         >
                           <FiTrash color="red" />
                         </button>
@@ -105,8 +114,6 @@ export default function Admin() {
           Cadastrar usuário
         </button>
       </div>
-
-      <BackHome />
     </div>
   )
 }

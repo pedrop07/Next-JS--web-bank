@@ -12,7 +12,6 @@ function Deposit() {
     payload.amount = parseInt(document.getElementById('amount').value);
 
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user)
 
     fetch(`/api/deposit/${user.id}`, {
       method: "POST",
@@ -36,7 +35,7 @@ function Deposit() {
   return (
     <div className="body">
       <div className="left">
-        <img src="public/images/home-bg-img.svg" alt="Imagem de banco" />
+        <img src="/images/home-bg-img.svg" alt="Imagem de banco" />
       </div>
 
       <div className="right">

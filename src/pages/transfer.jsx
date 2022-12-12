@@ -36,7 +36,7 @@ function Transfer() {
   return (
     <div className="body">
       <div className="left">
-        <img src="https://nlw6-discover.herokuapp.com/images/home-bg-img.svg" alt="Imagem de banco" />
+        <img src="/images/home-bg-img.svg" alt="Imagem de banco" />
       </div>
 
       <div className="right">

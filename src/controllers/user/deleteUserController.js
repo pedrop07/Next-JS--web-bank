@@ -1,13 +1,19 @@
-const { db } = require("../../db");
+import { prisma } from "../../lib/prisma";
 
-export function deleteUserController(req, res) {
+export async function deleteUserController(req, res) {
   const { cpf } = req.query;
 
-  const user = db.users[cpf];
+  await prisma.transaction.deleteMany({
+    where: {
+      user_id: cpf
+    }
+  })
 
-  if(!user) return res.status(400).send('Não existe um usuário com este CPF.');
-
-  delete db.users[cpf];
+  await prisma.user.delete({
+    where: {
+      id: cpf
+    }
+  })
 
   return res.status(204).send();
 }

@@ -18,5 +18,3 @@ const a = [
 ]
 
 const result = a.filter((user) => user.id == 12345678987);
-
-console.log(result)

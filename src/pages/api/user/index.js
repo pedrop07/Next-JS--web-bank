@@ -2,8 +2,6 @@ import { listUsersController } from "../../../controllers/user/listUsersControll
 import { registerController } from "../../../controllers/user/registerController";
 
 export default function handler(req, res) {
-  console.log(req.method);
-
   switch(req.method) {
     case 'GET':
       listUsersController(req, res);
