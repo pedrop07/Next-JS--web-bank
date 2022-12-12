@@ -1,10 +1,17 @@
-import { useEffect, useState } from "react";
-import { AiOutlineFileText } from 'react-icons/ai';
+import { useContext, useEffect, useState } from "react";
+import { AiOutlineFileText, AiOutlineEdit } from 'react-icons/ai';
+import { FiTrash } from 'react-icons/fi';
+import { AuthContext } from '../shared/context/auth';
 
 export default function Admin() {
+  const { user } = useContext(AuthContext);
   const [users, setUsers] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [filterText, setFilterText] = useState('');
+
+  const ctx = useContext(AuthContext);
+
+  console.log(ctx);
 
   const filterUsers = () => {
     if(!users) return null;
@@ -16,13 +23,11 @@ export default function Admin() {
     ));
   }
 
-  const handleStatementClick = (cpf) => {
-    window.location.href = "/statement/" + cpf;
+  const handleCreateUser = () => {
+
   }
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-
     if(!user) window.location.href = "/login";
 
     setIsLoading(true);
@@ -74,23 +79,21 @@ export default function Admin() {
                       <td>{name}</td>
                       <td>{email}</td>
                       <td>
-                        <button 
-                          onClick={() => handleStatementClick(id)}
+                        <a href={`/statement/${id}`}
                           className="icon"
                         >
-                          <AiOutlineFileText />
-                        </button>
-                        <button 
-                          onClick={() => handleStatementClick(id)}
+                          <AiOutlineFileText color="green" />
+                        </a>
+                        <a
+                          href={`/edit/${id}`}
                           className="icon"
                         >
-                          <AiOutlineFileText />
-                        </button>
-                        <button 
-                          onClick={() => handleStatementClick(id)}
+                          <AiOutlineEdit color="blue" />
+                        </a>
+                        <button
                           className="icon"
                         >
-                          <AiOutlineFileText />
+                          <FiTrash color="red" />
                         </button>
                       </td>
                     </tr>
@@ -100,6 +103,9 @@ export default function Admin() {
               )
           }
         </table>
+        <button className="btn" onClick={handleCreateUser}>
+          Cadastrar usuário
+        </button>
       </div>
 
       <a href="/" className="go-home btn">

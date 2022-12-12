@@ -209,4 +209,9 @@ table tbody tr td:last-child {
   border: none;
   font-size: 1.25rem;
   cursor: pointer;
+  margin-right: 1rem;
+}
+
+.icon:last-child {
+  margin-right: 0;
 }

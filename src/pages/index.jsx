@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../shared/context/auth";
 
 function Home() {
-  const [user, setUser] = useState(null);
+  const { user, setUser } = useContext(AuthContext);
 
   useEffect(() => {
     const userInfos = JSON.parse(localStorage.getItem('user'));
     if(!userInfos) window.location.href = "/login";
-
-    let userInfosUpdated = {};
     
     fetch(`/api/user/${userInfos.id}`)
       .then(res => res.json())
