@@ -8,11 +8,13 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem('user'));
 
+    if(!currentUser && !window.location.href.includes('login')) window.location.href = "/login";
+
     setUser(currentUser);
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user }}>
+    <AuthContext.Provider value={{ user, setUser }}>
       <Component {...pageProps} />
     </AuthContext.Provider>
   )

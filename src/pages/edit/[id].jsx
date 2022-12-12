@@ -1,15 +1,18 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../../shared/context/auth";
 
 function Edit() {
-  const [user, setUser] = useState(null);
+  const { user } = useContext(AuthContext);
 
   const router = useRouter();
   const { id } = router.query
 
-  const onSubmit = (ev) => {
-    const actualPassword = document.getElementById('ac-password').value;
-    if(user.password !== actualPassword) return alert('Senha incorreta');
+  const onSubmit = (ev) => {    
+    if(!user.is_admin) {
+      const actualPassword = document.getElementById('ac-password').value;
+      if(user.password !== actualPassword) return alert('Senha incorreta');
+    }
 
     const payload = {};
     ev.preventDefault();
@@ -26,8 +29,7 @@ function Edit() {
     })
       .then(res => res.json())
       .then(data => {
-        localStorage.setItem('user', JSON.stringify(data));
-        window.location.href = "/";
+        window.location.href = user.is_admin ?  "/admin" : "/";
       })
       .catch(err => {
         alert('Algo deu errado com a operação, tente novamente!');
@@ -37,18 +39,20 @@ function Edit() {
   }
 
   useEffect(() => {
-    const localUser = localStorage.getItem('user');
-    
-    if(!localUser) window.location.href = "/login";
-
-
-    const objUser = JSON.parse(localUser);
-    document.getElementById('email').value = objUser.email;
-    document.getElementById('name').value = objUser.name;
-    document.getElementById('password').value = objUser.password;
-
-    setUser(objUser);
-  }, []);
+    if(user && !user.is_admin) {
+      document.getElementById('email').value = user.email;
+      document.getElementById('name').value = user.name;
+      document.getElementById('password').value = user.password;
+    } else if(user && user.is_admin && id) {
+      fetch(`/api/user/${id}`)
+        .then(res => res.json())
+        .then(({ email, name, password }) => {
+          document.getElementById('email').value = email;
+          document.getElementById('name').value = name;
+          document.getElementById('password').value = password;
+        });
+    }
+  }, [user, id]);
 
   return (
     <div className="body">

@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../shared/context/auth";
 
 function Home() {
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
 
   useEffect(() => {
     const userInfos = JSON.parse(localStorage.getItem('user'));
@@ -11,8 +11,7 @@ function Home() {
     fetch(`/api/user/${userInfos.id}`)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
-        localStorage.setItem('user', JSON.stringify(data));
+        setUser(data);
       });
   }, []);
 

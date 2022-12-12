@@ -28,8 +28,6 @@ export default function Admin() {
   }
 
   useEffect(() => {
-    if(!user) window.location.href = "/login";
-
     setIsLoading(true);
 
     fetch(`/api/user`)
