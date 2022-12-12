@@ -1,19 +1,22 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 function Statement() {
+  const router = useRouter();
+  const { id } = router.query
+
   const [statement, setStatement] = useState([]);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
 
     if(!user) window.location.href = "/login";
+    if(!id) return;
 
-    fetch(`/api/statement/${user.id}`)
+    fetch(`/api/statement/${id}`)
       .then(res => res.json())
       .then(data => setStatement(data));
-  }, []);
-
-  console.log(statement)
+  }, [id]);
 
   const transformOrderTypeToLabel = (orderType) => {
     switch(orderType) {

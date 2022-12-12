@@ -186,7 +186,6 @@ table tbody tr {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
 table tbody tr:first-child td {
@@ -197,5 +196,17 @@ table tbody tr:first-child td {
 table tbody tr td {
   width: 100%;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+table tbody tr td:last-child {
+  justify-content: flex-end;
+}
+
+.icon {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
 }

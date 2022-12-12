@@ -1,7 +1,9 @@
-const { db } = require("../../db");
+import { prisma } from "../../lib/prisma";
 
-export function listUsersController(req, res) {
-  const users = Object.values(db.users);
+export async function listUsersController(req, res) {
+  const users = await prisma.user.findMany();
 
+  console.log(users);
+  
   res.status(200).send(users);
 }

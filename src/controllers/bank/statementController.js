@@ -1,17 +1,18 @@
 import { prisma } from "../../lib/prisma";
 
-const { db } = require("../../db");
-
 export async function statementController(req, res) {
   const { cpf } = req.query;
-
-  // const user = db.users[cpf];
 
   const user = await prisma.user.findUnique({
     where: {
       id: cpf,
     },
-  })
+    include: {
+      transaction: true
+    }
+  });
+
+  console.log(user);
 
   const userStatement = await prisma.transaction.findMany({
     where: {
@@ -20,7 +21,6 @@ export async function statementController(req, res) {
   })
 
   if(!user) return res.status(400).send('Não existe um usuário com este CPF.');
-
-  // return res.status(200).send([...user.statement].reverse());
-  return res.status(200).send(userStatement);
+ 
+  return res.status(200).send(user.transaction);
 }

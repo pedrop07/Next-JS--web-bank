@@ -69,7 +69,7 @@ function Home() {
           <a href="/transfer" className="btn">
             Transferência
           </a>
-          <a href="/statement" className="btn">
+          <a href={`/statement/${user?.id}`} className="btn">
             Extrato
           </a>
           <div className="btn" onClick={exit}>

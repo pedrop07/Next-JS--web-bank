@@ -12,32 +12,28 @@ export async function registerController(req, res) {
     return res.status(400).send('Algo deu errado com o seu cadastro! Verifique os dados e tente novamente.');
   }
 
-  // if(db.users[cpf]) {
-  //   return res.status(400).send('Já existe um usuário cadastrado com este CPF!');
-  // }
-
-  await prisma.user.create({
-    data:{
-      id: cpf,
-      name,
-      email,
-      password,
-      is_admin: false
-    }
-  })
-
-  // user.accNumber = String(Object.keys(db.users).length + 1).padStart(6, '0');
-  // user.createdAt = new Date();
-  // user.statement = [];
-  // user.bankBalance = 0;
-
-  // db.users[cpf] = user;
-
-  const actualUser = await prisma.user.findUnique({
+  const currentUser = await prisma.user.findUnique({
     where: {
       id: cpf,
     },
-  })
+  });
 
-  return res.status(201).send(actualUser);
+  if(currentUser) {
+    return res.status(400).send('Já existe um usuário cadastrado com este CPF!');
+  }
+
+  const data = {
+    id: cpf,
+    name,
+    email,
+    password,
+    is_admin: false
+  };
+
+  try {
+    await prisma.user.create({ data });
+    return res.status(201).send(data);
+  } catch (e) {
+    return res.status(500).send();
+  }
 }
