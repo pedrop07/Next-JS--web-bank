@@ -2,16 +2,16 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../shared/context/auth";
 
 function Home() {
-  const { user, setUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     const userInfos = JSON.parse(localStorage.getItem('user'));
     if(!userInfos) window.location.href = "/login";
-    
+
     fetch(`/api/user/${userInfos.id}`)
       .then(res => res.json())
       .then(data => {
-        setUser(data);
+        localStorage.setItem('user', JSON.stringify(data));
       });
   }, []);
 

@@ -14,7 +14,6 @@ function Login() {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         localStorage.setItem('user', JSON.stringify(data));
         window.location.href = "/";
       })

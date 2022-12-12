@@ -38,7 +38,6 @@ export default function Admin() {
   }, []);
 
   useEffect(() => {
-    console.log(users);
     setIsLoading(false);
   }, [users]);
 

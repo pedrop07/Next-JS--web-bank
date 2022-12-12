@@ -1,15 +1,15 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../shared/context/auth";
 
 function Statement() {
   const router = useRouter();
   const { id } = router.query
+  const { user } = useContext(AuthContext);
 
   const [statement, setStatement] = useState([]);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-
     if(!user) window.location.href = "/login";
     if(!id) return;
 
