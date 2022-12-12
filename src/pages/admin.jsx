@@ -80,6 +80,18 @@ export default function Admin() {
                         >
                           <AiOutlineFileText />
                         </button>
+                        <button 
+                          onClick={() => handleStatementClick(id)}
+                          className="icon"
+                        >
+                          <AiOutlineFileText />
+                        </button>
+                        <button 
+                          onClick={() => handleStatementClick(id)}
+                          className="icon"
+                        >
+                          <AiOutlineFileText />
+                        </button>
                       </td>
                     </tr>
                   ))
