@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { BackHome } from "../components/BackHome";
 
 function Deposit() {
   useEffect(() => {
@@ -35,7 +36,7 @@ function Deposit() {
   return (
     <div className="body">
       <div className="left">
-        <img src="https://nlw6-discover.herokuapp.com/images/home-bg-img.svg" alt="Imagem de banco" />
+        <img src="public/images/home-bg-img.svg" alt="Imagem de banco" />
       </div>
 
       <div className="right">
@@ -50,9 +51,7 @@ function Deposit() {
         </form>
       </div>
 
-      <a href="/" className="go-home btn">
-        Voltar
-      </a>
+      <BackHome />
     </div>
   )
 }

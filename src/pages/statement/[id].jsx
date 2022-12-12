@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
+import { BackHome } from "../../components/BackHome";
 import { AuthContext } from "../../shared/context/auth";
 
 function Statement() {
@@ -64,9 +65,7 @@ function Statement() {
         </table>
       </div>
 
-      <a href="/" className="go-home btn">
-        Voltar
-      </a>
+      <BackHome />
     </div>
   )
 }
