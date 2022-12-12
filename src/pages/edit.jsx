@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { BackHome } from "../components/BackHome";
 
 function Edit() {
   const onSubmit = (ev) => {
@@ -64,9 +65,7 @@ function Edit() {
         </form>
       </div>
 
-      <a href="/" className="go-home btn">
-        Voltar
-      </a>
+      <BackHome />
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AiOutlineFileText, AiOutlineEdit } from 'react-icons/ai';
 import { FiTrash } from 'react-icons/fi';
+import { BackHome } from "../components/BackHome";
 import { AuthContext } from '../shared/context/auth';
 
 export default function Admin() {
@@ -107,9 +108,7 @@ export default function Admin() {
         </button>
       </div>
 
-      <a href="/" className="go-home btn">
-        Voltar
-      </a>
+      <BackHome />
     </div>
   )
 }
